@@ -10,6 +10,11 @@ set -e
 mkdir -p /home/coder/"$PROJECT_FOLDER"
 chown -R coder:coder /home/coder/"$PROJECT_FOLDER"
 
+# Configure Git user globally
+echo "Configuring Git user identity..."
+su coder -c "git config --global user.name \"$GIT_USER_NAME\""
+su coder -c "git config --global user.email \"$GIT_USER_EMAIL\""
+
 # If GIT_REPO is defined, and .git is missing, clone into project
 if [ ! -z "$GIT_REPO" ] && [ ! -d "/home/coder/"$PROJECT_FOLDER"/.git" ]; then
   echo "Cloning repository $GIT_REPO..."
